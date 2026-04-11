@@ -12,14 +12,14 @@ variable "Env" {
   
 }
 
-variable "public_cidr_blocks" {
-   type = list
-}
+# variable "public_cidr_blocks" {
+#    type = list
+# }
 
-variable "private_cidr_blocks" {
-   type = list
-}
+# variable "private_cidr_blocks" {
+#    type = list
+# }
 
-variable "db_private_cidr_blocks" {
-   type = list
-}
+# variable "db_private_cidr_blocks" {
+#    type = list
+# }
