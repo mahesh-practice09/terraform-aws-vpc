@@ -17,10 +17,12 @@ resource "aws_internet_gateway" "main" {
   cidr_block = var.public_cidr_blocks[count.index]
   availability_zone = local.selected_zones[count.index]
   
-  tags = {
-      Name = "${var.Project}-${var.Env}-public-snet-${local.selected_zones[count.index]}"
-  }
- 
+  tags = merge(
+    {
+      Name = "${var.Project}-${var.Env}-public-snet-${local.selected_zones[count.index]}",
+    },
+    local.common_tags
+  )
 }      
   
  resource "aws_subnet" "private_subnet" {
@@ -28,9 +30,12 @@ resource "aws_internet_gateway" "main" {
   vpc_id     = aws_vpc.main.id
   cidr_block = var.private_cidr_blocks[count.index]
   availability_zone = local.selected_zones[count.index]
-  tags = {
-      Name = "${var.Project}-${var.Env}-private-snet-${local.selected_zones[count.index]}"
-  }
+  tags =merge(
+    {
+      Name = "${var.Project}-${var.Env}-private-snet-${local.selected_zones[count.index]}",
+    },
+    local.common_tags
+  )
  
 }      
 
@@ -39,8 +44,41 @@ resource "aws_internet_gateway" "main" {
   vpc_id     = aws_vpc.main.id
   cidr_block = var.db_private_cidr_blocks[count.index]
   availability_zone = local.selected_zones[count.index]
-  tags = {
-      Name = "${var.Project}-${var.Env}-db-private-snet-${local.selected_zones[count.index]}"
-  }
+  tags = merge(
+    {
+      Name = "${var.Project}-${var.Env}-db-private-snet-${local.selected_zones[count.index]}",
+    },
+    local.common_tags
+  )
  
 }  
+
+resource "aws_route_table" "public_rtable" {
+  vpc_id = aws_vpc.main.id
+  tags = merge(
+    {
+      Name = "${var.Project}-${var.Env}-public-rtable"
+    },
+    local.common_tags
+  )
+}
+
+resource "aws_route_table" "private_rtable" {
+  vpc_id = aws_vpc.main.id
+  tags = merge(
+    {
+      Name = "${var.Project}-${var.Env}-private-rtable"
+    },
+    local.common_tags
+  )
+}
+
+resource "aws_route_table" "db_private_rtable" {
+  vpc_id = aws_vpc.main.id
+  tags = merge(
+    {
+      Name = "${var.Project}-${var.Env}-db_private-rtable"
+    },
+    local.common_tags
+  )
+}
