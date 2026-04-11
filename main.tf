@@ -18,7 +18,7 @@ resource "aws_internet_gateway" "main" {
   availability_zone = local.selected_zones[count.index]
   
   tags = {
-      Name = "${var.Project}-${var.Env}-public-snet-${local.selected_zones[count-index]}"
+      Name = "${var.Project}-${var.Env}-public-snet-${local.selected_zones[count.index]}"
   }
  
 }      
@@ -29,7 +29,7 @@ resource "aws_internet_gateway" "main" {
   cidr_block = var.private_cidr_blocks[count.index]
   availability_zone = local.selected_zones[count.index]
   tags = {
-      Name = "${var.Project}-${var.Env}-private-snet-${local.selected_zones[count-index]}"
+      Name = "${var.Project}-${var.Env}-private-snet-${local.selected_zones[count.index]}"
   }
  
 }      
@@ -40,7 +40,7 @@ resource "aws_internet_gateway" "main" {
   cidr_block = var.db_private_cidr_blocks[count.index]
   availability_zone = local.selected_zones[count.index]
   tags = {
-      Name = "${var.Project}-${var.Env}-db-private-snet-${local.selected_zones[count-index]}"
+      Name = "${var.Project}-${var.Env}-db-private-snet-${local.selected_zones[count.index]}"
   }
  
 }  
