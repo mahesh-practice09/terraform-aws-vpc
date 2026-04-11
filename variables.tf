@@ -13,13 +13,13 @@ variable "Env" {
 }
 
 variable "public_cidr_blocks" {
-   type = list()
+   type = list
 }
 
 variable "private_cidr_blocks" {
-   type = list()
+   type = list
 }
 
 variable "db_private_cidr_blocks" {
-   type = list()
+   type = list
 }
