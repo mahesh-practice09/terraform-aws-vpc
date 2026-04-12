@@ -15,8 +15,9 @@ resource "aws_eip" "main" {
 }
 
 resource "aws_nat_gateway" "example" {
+  count = length(aws_subnet.public_subnet)
   allocation_id = aws_eip.main.allocation_id
-  subnet_id     = aws_subnet.public_subnet[count.index].id
+  subnet_id     = aws_subnet.public_subnet[0].id
 
 
   depends_on = [aws_internet_gateway.main]
