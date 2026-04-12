@@ -20,6 +20,13 @@ resource "aws_nat_gateway" "main" {
 
 
   depends_on = [aws_internet_gateway.main]
+
+    tags = merge(
+    {
+      Name = "${var.Project}-${var.Env}-nat-gw"
+    },
+    local.common_tags
+  )
 }
 
  resource "aws_subnet" "public_subnet" {
