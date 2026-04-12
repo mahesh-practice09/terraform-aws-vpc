@@ -23,3 +23,8 @@ variable "private_cidr_blocks" {
 variable "db_private_cidr_blocks" {
    type = list
 }
+
+variable "is_peering_required" {
+   default = false
+   type = bool
+}
