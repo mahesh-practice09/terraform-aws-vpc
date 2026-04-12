@@ -73,11 +73,6 @@ resource "aws_nat_gateway" "main" {
 
 resource "aws_route_table" "public_rtable" {
   vpc_id = aws_vpc.main.id
-
-  route {
-      cidr_block = "0.0.0.0/0"
-      gateway_id = aws_internet_gateway.main.id
-  }
   tags = merge(
     {
       Name = "${var.Project}-${var.Env}-public-rtable"
@@ -86,12 +81,14 @@ resource "aws_route_table" "public_rtable" {
   )
 }
 
+resource "aws_route" "public" {
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.main.id
+  route_table_id = aws_route_table.public_rtable.id
+}
+
 resource "aws_route_table" "private_rtable" {
   vpc_id = aws_vpc.main.id
-  route {
-      cidr_block = "0.0.0.0/0"
-      nat_gateway_id = aws_nat_gateway.main.id
-  }
   tags = merge(
     {
       Name = "${var.Project}-${var.Env}-private-rtable"
@@ -100,18 +97,27 @@ resource "aws_route_table" "private_rtable" {
   )
 }
 
+resource "aws_route" "private" {
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.main.id
+  route_table_id = aws_route_table.private_rtable.id
+}
+
 resource "aws_route_table" "db_private_rtable" {
   vpc_id = aws_vpc.main.id
-   route {
-      cidr_block = "0.0.0.0/0"
-      nat_gateway_id = aws_nat_gateway.main.id
-  }
   tags = merge(
     {
       Name = "${var.Project}-${var.Env}-db-private-rtable"
     },
     local.common_tags
   )
+}
+
+
+resource "aws_route" "db_private" {
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.main.id
+  route_table_id = aws_route_table.db_private_rtable.id
 }
 
 resource "aws_route_table_association" "public_rt_assoc" {
