@@ -14,6 +14,14 @@ resource "aws_eip" "main" {
   domain = "vpc"
 }
 
+resource "aws_nat_gateway" "example" {
+  allocation_id = aws_eip.main.allocation_id
+  subnet_id     = aws_subnet.public_subnet[count.index].id
+
+
+  depends_on = [aws_internet_gateway.main]
+}
+
  resource "aws_subnet" "public_subnet" {
   count = length(var.public_cidr_blocks)
   vpc_id     = aws_vpc.main.id
