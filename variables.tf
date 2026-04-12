@@ -25,5 +25,6 @@ variable "db_private_cidr_blocks" {
 }
 
 variable "is_peering_required" {
-   type = bool
+  type    = bool
+  default = false
 }

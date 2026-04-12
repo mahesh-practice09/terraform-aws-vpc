@@ -21,5 +21,5 @@ locals {
     }
     
     igw_tags = merge(local.common_tags,local.igw_final_tags)
-   
+    is_peering_required = true
 }
