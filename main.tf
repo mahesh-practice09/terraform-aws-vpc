@@ -114,3 +114,21 @@ resource "aws_route_table" "db_private_rtable" {
   )
 }
 
+resource "aws_route_table_association" "public_rt_assoc" {
+  count = length(aws_subnet.public_subnet.id)
+  subnet_id      = aws_subnet.public_subnet[count.index].id
+  route_table_id = aws_route_table.public_rtable.id
+}
+
+resource "aws_route_table_association" "private_rt_assoc" {
+  count = length(aws_subnet.private_subnet.id)
+  subnet_id      = aws_subnet.public_subnet[count.index].id
+  route_table_id = aws_route_table.private_rtable.id
+}
+
+
+resource "aws_route_table_association" "db_private_rt_assoc" {
+  count = length(aws_subnet.db_private_subnet.id)
+  subnet_id      = aws_subnet.public_subnet[count.index].id
+  route_table_id = aws_route_table.db_private_rtable.id
+}
