@@ -32,6 +32,7 @@ resource "aws_nat_gateway" "main" {
  resource "aws_subnet" "public_subnet" {
   count = length(var.public_cidr_blocks)
   vpc_id     = aws_vpc.main.id
+  map_public_ip_on_launch = true
   cidr_block = var.public_cidr_blocks[count.index]
   availability_zone = local.selected_zones[count.index]
   
