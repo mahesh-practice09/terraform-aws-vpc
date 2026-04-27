@@ -23,7 +23,7 @@ resource "aws_nat_gateway" "main" {
 
     tags = merge(
     {
-      Name = "${var.Project}-${var.Env}-nat-gw"
+      Name = "${var.Project}-${var.environment}-nat-gw"
     },
     local.common_tags
   )
@@ -38,7 +38,7 @@ resource "aws_nat_gateway" "main" {
   
   tags = merge(
     {
-      Name = "${var.Project}-${var.Env}-public-snet-${local.selected_zones[count.index]}",
+      Name = "${var.Project}-${var.environment}-public-snet-${local.selected_zones[count.index]}",
     },
     local.common_tags
   )
@@ -51,7 +51,7 @@ resource "aws_nat_gateway" "main" {
   availability_zone = local.selected_zones[count.index]
   tags =merge(
     {
-      Name = "${var.Project}-${var.Env}-private-snet-${local.selected_zones[count.index]}",
+      Name = "${var.Project}-${var.environment}-private-snet-${local.selected_zones[count.index]}",
     },
     local.common_tags
   )
@@ -65,7 +65,7 @@ resource "aws_nat_gateway" "main" {
   availability_zone = local.selected_zones[count.index]
   tags = merge(
     {
-      Name = "${var.Project}-${var.Env}-db-private-snet-${local.selected_zones[count.index]}",
+      Name = "${var.Project}-${var.environment}-db-private-snet-${local.selected_zones[count.index]}",
     },
     local.common_tags
   )
@@ -76,7 +76,7 @@ resource "aws_route_table" "public_rtable" {
   vpc_id = aws_vpc.main.id
   tags = merge(
     {
-      Name = "${var.Project}-${var.Env}-public-rtable"
+      Name = "${var.Project}-${var.environment}-public-rtable"
     },
     local.common_tags
   )
@@ -92,7 +92,7 @@ resource "aws_route_table" "private_rtable" {
   vpc_id = aws_vpc.main.id
   tags = merge(
     {
-      Name = "${var.Project}-${var.Env}-private-rtable"
+      Name = "${var.Project}-${var.environment}-private-rtable"
     },
     local.common_tags
   )
@@ -108,7 +108,7 @@ resource "aws_route_table" "db_private_rtable" {
   vpc_id = aws_vpc.main.id
   tags = merge(
     {
-      Name = "${var.Project}-${var.Env}-db-private-rtable"
+      Name = "${var.Project}-${var.environment}-db-private-rtable"
     },
     local.common_tags
   )
