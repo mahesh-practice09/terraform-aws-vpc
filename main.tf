@@ -69,8 +69,24 @@ resource "aws_nat_gateway" "main" {
     },
     local.common_tags
   )
+
+  
  
 }  
+
+
+resource "aws_db_subnet_group" "db_subnet_group" {
+  
+  # A list of VPC subnet IDs. 
+  # AWS requires subnets from at least two distinct Availability Zones.
+  subnet_ids = [ aws_subnet.db_private_subnet.*.id ]
+   tags = merge(
+    {
+      Name = "${var.Project}-${var.environment}",
+    },
+    local.common_tags
+  )
+}
 
 resource "aws_route_table" "public_rtable" {
   vpc_id = aws_vpc.main.id
