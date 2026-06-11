@@ -19,5 +19,5 @@ output "db_private_subnet_ids" {
 }
 
 output "db_subnet_groups_id" {
-  value = aws_subnet.db_subnet_group[*].id
+  value = aws_db_subnet_group.db_subnet_groups[*].id
 }
