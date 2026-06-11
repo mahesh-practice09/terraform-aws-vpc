@@ -74,9 +74,8 @@ resource "aws_nat_gateway" "main" {
  
 }  
 
-
 resource "aws_db_subnet_group" "db_subnet_group" {
-  
+  name = "${var.Project}-${var.environment}-dbsubnetgrp"
   # A list of VPC subnet IDs. 
   # AWS requires subnets from at least two distinct Availability Zones.
   subnet_ids =  aws_subnet.db_private_subnet[*].id 
