@@ -79,7 +79,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
   
   # A list of VPC subnet IDs. 
   # AWS requires subnets from at least two distinct Availability Zones.
-  subnet_ids = [ aws_subnet.db_private_subnet[*].id ]
+  subnet_ids =  aws_subnet.db_private_subnet[*].id 
    tags = merge(
     {
       Name = "${var.Project}-${var.environment}",
