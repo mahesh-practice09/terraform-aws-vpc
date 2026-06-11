@@ -82,7 +82,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
   subnet_ids =  aws_subnet.db_private_subnet[*].id 
    tags = merge(
     {
-      Name = "${var.Project}-${var.environment}",
+      Name = "${var.Project}-${var.environment}-dbsubnetgrp",
     },
     local.common_tags
   )
